@@ -1,5 +1,6 @@
 package balam.app.protocaptura
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 
@@ -9,8 +10,37 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import balam.app.protocaptura.Utils.Utils
 import balam.app.protocaptura.fragment.CapturaCamaraFragment
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.speech.RecognizerIntent
+import android.util.Log
+import balam.app.protocaptura.fragment.CaputuraPorVozFragment
+import balam.app.protocaptura.interfaces.CallbackVozListener
+import balam.app.protocaptura.interfaces.SendData
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(), CallbackVozListener {
+
+    private var sendDataFragment: SendData? = null
+    private val RECONOCIMIENTO_VOZ_ACTIVITY = 1
+
+
+    override fun onClickListener() {
+        val intentActionRecognizeSpeech = Intent(
+                RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        // Configura el Lenguaje (Español-México)
+        intentActionRecognizeSpeech.putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL, "es-MX")
+        try {
+            startActivityForResult(intentActionRecognizeSpeech,
+                    RECONOCIMIENTO_VOZ_ACTIVITY)
+        } catch (a: ActivityNotFoundException) {
+            Toast.makeText(applicationContext,
+                    "Tú dispositivo no soporta el reconocimiento por voz",
+                    Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
 
     private var fragmentManager: FragmentManager? = null
@@ -28,6 +58,9 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+
+
     companion object {
 
         private const val RC_SIGN_IN = 123
@@ -59,6 +92,24 @@ class MainActivity : AppCompatActivity() {
             replaceLoginFragment()
         else
             super.onBackPressed()
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val articleFrag = supportFragmentManager.findFragmentById(R.id.frameContainer) as CaputuraPorVozFragment?
+        when (requestCode) {
+            RECONOCIMIENTO_VOZ_ACTIVITY ->
+                if (resultCode == Activity.RESULT_OK && null != data) {
+                    val speech = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    val strSpeech2Text = speech[0]
+                    Log.i("TAG", strSpeech2Text)
+                    articleFrag?.mostrarTexto(strSpeech2Text)
+                }
+
+
+        }
     }
 
 

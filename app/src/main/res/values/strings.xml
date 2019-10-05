@@ -4,4 +4,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="scan_bar_code" />
+    <string name="voice_fragment_title">Dictado por voz</string>
+    <string name="placeholder_dictado">Voz a texto</string>
 </resources>
