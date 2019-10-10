@@ -1,5 +1,6 @@
 package balam.app.protocaptura
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -12,8 +13,10 @@ import balam.app.protocaptura.Utils.Utils
 import balam.app.protocaptura.fragment.CapturaCamaraFragment
 import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.pm.PackageManager
 import android.speech.RecognizerIntent
 import android.util.Log
+import balam.app.protocaptura.fragment.CapturaCamaraFragment.REQUEST_CAMERA
 import balam.app.protocaptura.fragment.CaputuraPorVozFragment
 import balam.app.protocaptura.interfaces.CallbackVozListener
 import balam.app.protocaptura.interfaces.SendData
@@ -113,5 +116,13 @@ class MainActivity : AppCompatActivity(), CallbackVozListener {
     }
 
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CAMERA) {
+            if (permissions[0].equals(Manifest.permission.CAMERA)
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            }
+        }
+    }
 
 }

@@ -1,9 +1,12 @@
 package balam.app.protocaptura.fragment;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -25,6 +28,7 @@ import balam.app.protocaptura.Utils.Utils;
 
 public class CapturaCamaraFragment extends Fragment implements View.OnClickListener {
     private static View view;
+    public static int REQUEST_CAMERA=100;
     private Button scanBtn,vozBtn;
     private static FragmentManager fragmentManager;
     private CodeScanner mCodeScanner;
@@ -81,8 +85,8 @@ public class CapturaCamaraFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_scan:
-                mCodeScanner.startPreview();
-                scannerView.setVisibility(View.VISIBLE);
+
+                checkPermission();
                 break;
             case R.id.btn_voz:
 
@@ -95,6 +99,17 @@ public class CapturaCamaraFragment extends Fragment implements View.OnClickListe
                 break;
         }
     }
+
+    private void checkPermission() {
+        if (ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
+        } else {
+            mCodeScanner.startPreview();
+            scannerView.setVisibility(View.VISIBLE);
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
