@@ -5,15 +5,18 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import balam.app.protocaptura.MainActivity;
 import balam.app.protocaptura.R;
+import balam.app.protocaptura.Utils.Utils;
 import balam.app.protocaptura.interfaces.CallbackVozListener;
 import balam.app.protocaptura.interfaces.SendData;
 
@@ -21,6 +24,7 @@ public class CaputuraPorVozFragment extends Fragment implements SendData, View.O
 
     private  TextView setTexto;
     private CallbackVozListener listener;
+    private FragmentManager fragmentManager;
 
     public CaputuraPorVozFragment() {
         // Required empty public constructor
@@ -37,8 +41,11 @@ public class CaputuraPorVozFragment extends Fragment implements SendData, View.O
     }
 
     private void bindUI(View view) {
+        fragmentManager = getActivity().getSupportFragmentManager();
         ImageView grabarVoz=view.findViewById(R.id.imgGrabarVoz);
+        Button capturaManual=view.findViewById(R.id.btnManual);
         grabarVoz.setOnClickListener(this);
+        capturaManual.setOnClickListener(this);
         setTexto=view.findViewById(R.id.txtMostrarTexto);
     }
 
@@ -50,8 +57,18 @@ public class CaputuraPorVozFragment extends Fragment implements SendData, View.O
 
     @Override
     public void onClick(View v) {
-        if (v.getId()==R.id.imgGrabarVoz){
-            listener.onClickListener();
+        switch (v.getId()){
+            case R.id.imgGrabarVoz:
+                listener.onClickListener();
+                break;
+            case R.id.btnManual:
+                fragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(R.anim.right_enter, R.anim.left_out)
+                        .replace(R.id.frameContainer, new CapturaManualFragment(),
+                                Utils.SignUp_Fragment).commit();
+                break;
+
         }
     }
 
