@@ -1,7 +1,6 @@
 package balam.app.protocaptura.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import balam.app.protocaptura.MainActivity;
+import balam.app.protocaptura.activity.MainActivity;
 import balam.app.protocaptura.R;
 import balam.app.protocaptura.Utils.Utils;
 import balam.app.protocaptura.interfaces.CallbackVozListener;

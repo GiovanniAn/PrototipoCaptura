@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="5dp"
+        android:background="@drawable/esquinas_redondeadas">
+
+        <LinearLayout
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/texDepartamento"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:text="Linea Blanca"
+                    android:layout_weight="1"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/txtPorcentaje"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="50%"
+                    android:textSize="20sp"
+                    android:textColor="@color/red" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_operador"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jesus del monte"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_faltante"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Faltante"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="25dp"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/btn_iniciar_toma"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Iniciar toma."
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/boton_redondo" />
+
+                <androidx.legacy.widget.Space
+                    android:layout_width="15dp"
+                    android:layout_height="0dp" />
+
+                <Button
+                    android:id="@+id/btn_concluir_toma"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="concluir."
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/boton_redondo" />
+
+            </LinearLayout>
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</FrameLayout>
